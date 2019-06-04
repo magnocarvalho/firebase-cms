@@ -7,19 +7,19 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
-  selector: 'add-product-category',
-  templateUrl: './add-product-category.component.html',
-  styleUrls: ['./add-product-category.component.scss']
+  selector: 'add-fabricante',
+  templateUrl: './add-fabricante.component.html',
+  styleUrls: ['./add-fabricante.component.scss']
 })
-export class AddProductCategoryComponent implements OnInit {
+export class AddFabricanteComponent implements OnInit {
 
-  categories: AngularFireList<any>;
-  category: AngularFireObject<any>;
+  fabricantes: AngularFireList<any>;
+  fabricante: AngularFireObject<any>;
   newName: string;
   newWeight: number;
   newProducts: any;
   editMode: boolean;
-  categoryKey: string;
+  fabricanteKey: string;
   currentAdmin: any;
   selectedOption: string;
   currentModeratedCategories: AngularFireList<any>;
@@ -35,7 +35,7 @@ export class AddProductCategoryComponent implements OnInit {
     public globalService: GlobalService,
     public dialog: MdDialog
   ) {
-    this.categories = db.list('/categories');
+    this.fabricantes = db.list('/fabricantes');
 
     this.globalService.admin.subscribe(admin => {
       this.currentAdmin = admin;
@@ -46,18 +46,18 @@ export class AddProductCategoryComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
         if (params && params.key) {
           this.editMode = true;
-          this.categoryKey = params.key;
+          this.fabricanteKey = params.key;
 
           if (this.router.url.includes('approval')) {
-            this.currentCategory = this.db.object('/approvals/categories/' + params.key);
-            this.db.object('/approvals/categories/' + this.categoryKey).valueChanges().subscribe((approvalCategory:any) => {
+            this.currentCategory = this.db.object('/approvals/fabricantes/' + params.key);
+            this.db.object('/approvals/fabricantes/' + this.fabricanteKey).valueChanges().subscribe((approvalCategory:any) => {
               this.entityObject = approvalCategory;
             });
           } else {
-            this.currentCategory = this.db.object('/categories/' + params.key);
+            this.currentCategory = this.db.object('/fabricantes/' + params.key);
 
-            // check to see if any approvals are awaiting on this category
-            this.db.list('/approvals/categories', ref => ref.orderByChild('entityKey').equalTo(params.key)).snapshotChanges()
+            // check to see if any approvals are awaiting on this fabricante
+            this.db.list('/approvals/fabricantes', ref => ref.orderByChild('entityKey').equalTo(params.key)).snapshotChanges()
               .subscribe((approval:any) => {
                 if (approval.length > 0 && approval[0]) {
                   this.awaitingApproval = approval[0].key;
@@ -81,24 +81,24 @@ export class AddProductCategoryComponent implements OnInit {
 
   addCategory(newName: string, newWeight: number) {
     if (newName) {
-      let categoryObject = {
+      let fabricanteObject = {
         name: newName,
         weight: newWeight,
         slug: this.globalService.slugify(newName),
         dateUpdated: Date.now().toString(),
         rdateUpdated: (Date.now() * -1).toString(),
         updatedBy: this.currentAdmin.uid,
-        entityKey: this.editMode && this.categoryKey ? this.categoryKey : null,
+        entityKey: this.editMode && this.fabricanteKey ? this.fabricanteKey : null,
         products: this.newProducts ? this.newProducts : null
       };
 
-      if (this.editMode && this.categoryKey) {
-        this.db.object('/categories/' + this.categoryKey).update(categoryObject).then(res =>{
+      if (this.editMode && this.fabricanteKey) {
+        this.db.object('/fabricantes/' + this.fabricanteKey).update(fabricanteObject).then(res =>{
           this.ngOnInit();
         });
       } else {
-        this.categories.push(categoryObject).then((item) => {
-          this.db.object('/categories/' + item.key + '/entityKey').set(item.key).then(res =>{
+        this.fabricantes.push(fabricanteObject).then((item) => {
+          this.db.object('/fabricantes/' + item.key + '/entityKey').set(item.key).then(res =>{
             this.ngOnInit();
           });
         });
@@ -116,7 +116,7 @@ export class AddProductCategoryComponent implements OnInit {
     if (newName && this.currentAdmin.uid) {
 
       let approvalObject = {
-        entityKey: this.router.url.includes('approval') ? this.entityObject.entityKey : this.categoryKey,
+        entityKey: this.router.url.includes('approval') ? this.entityObject.entityKey : this.fabricanteKey,
         name: newName,
         weight: newWeight,
         slug: this.globalService.slugify(newName),
@@ -126,10 +126,10 @@ export class AddProductCategoryComponent implements OnInit {
         products: this.newProducts ? this.newProducts : null
       };
 
-      if (this.editMode && this.categoryKey) {
-        this.currentModeratedCategories = this.db.list('/approvals/categories/');
+      if (this.editMode && this.fabricanteKey) {
+        this.currentModeratedCategories = this.db.list('/approvals/fabricantes/');
 
-        let adminApprovalCategories = this.db.list('/approvals/categories/', ref => ref.orderByChild('updatedBy').equalTo(this.currentAdmin.uid)).valueChanges();
+        let adminApprovalCategories = this.db.list('/approvals/fabricantes/', ref => ref.orderByChild('updatedBy').equalTo(this.currentAdmin.uid)).valueChanges();
 
         adminApprovalCategories.take(1).subscribe((approvals:any) => {
           let matchingApprovals = [];
@@ -139,18 +139,18 @@ export class AddProductCategoryComponent implements OnInit {
             });
           } else {
             matchingApprovals = approvals.filter((match) => {
-              return match.entityKey === this.categoryKey;
+              return match.entityKey === this.fabricanteKey;
             });
           }
 
           if (matchingApprovals.length === 0 || !this.router.url.includes('approval')) {
             this.currentModeratedCategories.push(approvalObject);
           } else {
-            this.db.object('/approvals/categories/' + this.categoryKey).update(approvalObject);
+            this.db.object('/approvals/fabricantes/' + this.fabricanteKey).update(approvalObject);
           }
         });
       } else {
-          this.db.list('/approvals/categories/').push(approvalObject);
+          this.db.list('/approvals/fabricantes/').push(approvalObject);
       }
       let snackBarRef = this.snackBar.open('Category submitted for moderation', 'OK!', {
         duration: 3000
@@ -165,17 +165,17 @@ export class AddProductCategoryComponent implements OnInit {
 
   approveItem(newName: string, newWeight: number) {
     if (this.entityObject.entityKey) {
-      let ogEntity = this.db.object('/categories/' + this.entityObject.entityKey);
+      let ogEntity = this.db.object('/fabricantes/' + this.entityObject.entityKey);
       ogEntity.update(this.entityObject);
     } else {
-      this.db.list('/categories').push(this.entityObject);
+      this.db.list('/fabricantes').push(this.entityObject);
     }
 
-    this.db.object('/approvals/categories/' + this.categoryKey).remove();
+    this.db.object('/approvals/fabricantes/' + this.fabricanteKey).remove();
     let snackBarRef = this.snackBar.open('Category approved', 'OK!', {
       duration: 3000
     });
-    this.router.navigateByUrl('admin/product-categories');
+    this.router.navigateByUrl('admin/product-fabricantes');
   }
 
   deleteItem(event) {
@@ -184,18 +184,18 @@ export class AddProductCategoryComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.selectedOption = result;
       if (this.selectedOption === 'delete') {
-        this.db.object('/approvals/categories/' + this.categoryKey).remove();
+        this.db.object('/approvals/fabricantes/' + this.fabricanteKey).remove();
         let snackBarRef = this.snackBar.open('Draft deleted', 'OK!', {
           duration: 3000
         });
-        this.router.navigateByUrl('admin/product-categories')
+        this.router.navigateByUrl('admin/product-fabricantes')
       }
     });
   }
 
   validateFields(name: string) {
     if (!name) {
-      let snackBarRef = this.snackBar.open('You must add a name for this category', 'OK!', {
+      let snackBarRef = this.snackBar.open('You must add a name for this fabricante', 'OK!', {
         duration: 3000
       });
     }

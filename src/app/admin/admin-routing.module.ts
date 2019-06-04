@@ -28,6 +28,8 @@ import { OrdersComponent } from 'app/storefront-components/orders/orders.compone
 import { AuthGuard } from 'app/services/auth.guard';
 import { SuperAdminGuard } from 'app/services/super-admin.guard';
 import { AdminGuard } from 'app/services/admin.guard';
+import { AddFabricanteComponent } from './admin-components/add-fabricante/add-fabricante.component';
+import { AdminFabricanteComponent } from './admin-components/admin-fabricante/admin-fabricante.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent, canActivate: [AuthGuard],
@@ -40,6 +42,7 @@ const routes: Routes = [
           { path: 'add-page', component: AddPageComponent },
           { path: 'add-post', component: AddPostComponent },
           { path: 'add-product', component: AddProductComponent },
+          { path: 'add-fabricante', component: AddFabricanteComponent },
           { path: 'add-product-category', component: AddProductCategoryComponent },
           { path: 'add-admin', component: AddAdminComponent, canActivate: [SuperAdminGuard] },
           { path: 'approvals', component: AdminApprovalsComponent },
@@ -56,6 +59,7 @@ const routes: Routes = [
           { path: 'edit-page/:key', component: AddPageComponent },
           { path: 'edit-post/:key', component: AddPostComponent },
           { path: 'edit-product/:key', component: AddProductComponent },
+          { path: 'edit-fabricante/:key', component: AddFabricanteComponent },
           { path: 'edit-product-category/:key', component: AddProductCategoryComponent },
           { path: 'menus', component: AdminMenusComponent, canActivate: [AdminGuard] },
           { path: 'orders', component: AdminOrdersComponent, canActivate: [AdminGuard] },
@@ -63,6 +67,7 @@ const routes: Routes = [
           { path: 'pages', component: AdminPagesComponent },
           { path: 'posts', component: AdminPostsComponent },
           { path: 'products', component: AdminProductsComponent },
+          { path: 'fabricante', component: AdminFabricanteComponent },
           { path: 'theme', component: AdminThemeComponent, canActivate: [AdminGuard] },
           { path: 'admins', component: AdminAdminsComponent, canActivate: [SuperAdminGuard] },
           { path: '', component: AdminDashboardComponent }

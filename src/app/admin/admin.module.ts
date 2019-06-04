@@ -37,6 +37,8 @@ import { SuperAdminGuard } from 'app/services/super-admin.guard';
 import { AdminGuard } from 'app/services/admin.guard';
 
 import { AdminRoutingModule } from './admin-routing.module';
+import { AdminFabricanteComponent } from './admin-components/admin-fabricante/admin-fabricante.component';
+import { AddFabricanteComponent } from './admin-components/add-fabricante/add-fabricante.component';
 
 @NgModule({
   imports: [
@@ -70,6 +72,8 @@ import { AdminRoutingModule } from './admin-routing.module';
     AdminThemeComponent,
     DeleteDialogComponent,
     ApproveDialogComponent,
+    AdminFabricanteComponent,
+    AddFabricanteComponent
   ],
   providers: [AuthGuard, SuperAdminGuard, AdminGuard],
   entryComponents: [DeleteDialogComponent, ApproveDialogComponent],

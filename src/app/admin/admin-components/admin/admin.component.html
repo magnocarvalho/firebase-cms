@@ -20,34 +20,39 @@
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/posts')}"
                 routerLink="/admin/posts">
-                <md-icon>class</md-icon> Posts
+                <md-icon>class</md-icon> Postagens
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/pages')}"
                 routerLink="/admin/pages">
-                <md-icon>description</md-icon> Pages
+                <md-icon>description</md-icon> Paginas
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/products')}"
                 routerLink="/admin/products">
-                <md-icon>shopping_basket</md-icon> Products
+                <md-icon>shopping_basket</md-icon> Produtos
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/product-categories')}"
                 routerLink="/admin/product-categories">
-                <md-icon>group_work</md-icon> Product Categories
+                <md-icon>group_work</md-icon> categoria
+            </md-list-item>
+            <md-list-item
+                [ngClass]="{'selected': router.url.includes('/admin/fabricante')}"
+                routerLink="/admin/fabricante">
+                <md-icon>label</md-icon> Fabricante
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/customers')}"
                 routerLink="/admin/customers"
                 *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-                <md-icon>account_circle</md-icon> Customers
+                <md-icon>account_circle</md-icon> Clientes
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/orders')}"
                 routerLink="/admin/orders"
                 *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-                <md-icon>attach_money</md-icon> Orders
+                <md-icon>attach_money</md-icon> Pedidos
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/menus')}"
@@ -59,18 +64,18 @@
                 [ngClass]="{'selected': router.url === '/admin/theme'}"
                 routerLink="/admin/theme"
                 *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-                <md-icon>restaurant_menu</md-icon> Theme
+                <md-icon>restaurant_menu</md-icon> Temas
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url === '/admin/approvals'}"
                 routerLink="/admin/approvals">
-                <md-icon>check_circle</md-icon> Approvals
+                <md-icon>check_circle</md-icon> Aprovações
             </md-list-item>
             <md-list-item
                 [ngClass]="{'selected': router.url.includes('/admin/admins')}"
                 routerLink="/admin/admins"
                 *ngIf="currentAdmin.role === 'super-admin'">
-                <md-icon>assignment_ind</md-icon> Admins
+                <md-icon>assignment_ind</md-icon> Administradores
             </md-list-item>
         </md-list>
     </md-sidenav>
