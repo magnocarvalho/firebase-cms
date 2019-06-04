@@ -1,11 +1,11 @@
 {
     "dir": "ltr",
     "lang": "en",
-    "name": "FireShop",
+    "name": "ellitecapas",
     "scope": "/",
     "display": "standalone",
     "start_url": "./?utm_source=web_app_manifest",
-    "short_name": "FireShop",
+    "short_name": "ellitecapas",
     "theme_color": "#2E2E2E",
     "description": "",
     "orientation": "any",

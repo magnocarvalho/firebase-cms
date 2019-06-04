@@ -7,8 +7,8 @@ For dia 03/06/2019 adaptado para aplicativo model e admininstrativo de e commerc
 
 ## Demo
 
-* Check out the front end application: https://fir-cms-76f54.firebaseapp.com
-* Check out the admin interface: https://fir-cms-76f54.firebaseapp.com/login
+* Check out the front end application: https://ellitecapas.firebaseapp.com
+* Check out the admin interface: https://ellitecapas.firebaseapp.com/login
   * Admin login details: admin@admin.com / admin123
     * This user has an 'editor' role
     * All of the data will be reset once a week

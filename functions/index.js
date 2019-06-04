@@ -17,7 +17,7 @@
 
 const functions = require('firebase-functions'),
       admin = require('firebase-admin'),
-      logging = require('@google-cloud/logging')();n
+      logging = require('@google-cloud/logging')();
 
 admin.initializeApp(functions.config().firebase);
 
@@ -156,13 +156,13 @@ exports.sendEmailConfirmation = functions.database.ref('/admins/{id}').onWrite(e
   }
 
   const mailOptions = {
-    from: '"FireShop" <noreply@firebase.com>',
+    from: '"ellitecapas" <noreply@firebase.com>',
     to: val.email
   };
 
   if (!val.active) {
     mailOptions.subject = 'Admin Confirmation';
-    mailOptions.html = '<h2>FireShop</h2>You have been added as an admin to FireShop. <br><br>Sign in now: https://' + process.env.GCLOUD_PROJECT + '.firebaseapp.com/register';
+    mailOptions.html = '<h2>ellitecapas</h2>You have been added as an admin to ellitecapas. <br><br>Sign in now: https://' + process.env.GCLOUD_PROJECT + '.firebaseapp.com/register';
     return mailTransport.sendMail(mailOptions).then(() => {
       console.log('New admin confirmation email sent to:', val.email);
     }).catch(error => {
@@ -180,11 +180,11 @@ exports.sendOrderConfirmation = functions.database.ref('/users/{uid}/orders/{ord
 
     if (email) {
       const mailOptions = {
-        from: '"FireShop" <noreply@firebase.com>',
+        from: '"ellitecapas" <noreply@firebase.com>',
         to: email
       };
       mailOptions.subject = 'Order Confirmation';
-      mailOptions.html = '<h2>FireShop</h2>Order #' + event.params.orderId + '. This is a confirmation email for you order on FireShop. <br><br>';
+      mailOptions.html = '<h2>ellitecapas</h2>Order #' + event.params.orderId + '. This is a confirmation email for you order on ellitecapas. <br><br>';
       mailOptions.html += 'View order details and status by logging in: https://' + process.env.GCLOUD_PROJECT + '.firebaseapp.com/account/order/' + event.params.orderId;
       return mailTransport.sendMail(mailOptions).then(() => {
         console.log('New order confirmation email sent to:', email);
