@@ -17,12 +17,12 @@
 
 const functions = require('firebase-functions'),
       admin = require('firebase-admin'),
-      logging = require('@google-cloud/logging')();
+      logging = require('@google-cloud/logging')();n
 
 admin.initializeApp(functions.config().firebase);
 
 const stripe = require('stripe')(functions.config().stripe.token),
-      currency = functions.config().stripe.currency || 'USD';
+      currency = functions.config().stripe.currency || 'BRL';
 
 // [START chargecustomer]
 // Charge the Stripe customer whenever an amount is written to the Realtime database

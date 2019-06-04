@@ -1,7 +1,10 @@
 {
   "rules": {
     "categories": {
-      ".indexOn": ["slug", "weight"],
+      ".indexOn": [
+        "slug",
+        "weight"
+      ],
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"
     },
@@ -18,22 +21,37 @@
       ".read": "root.child('admins/'+auth.uid).exists()",
       ".write": "root.child('admins/'+auth.uid).exists()",
       "categories": {
-        ".indexOn": ["updatedBy", "entityKey"]
+        ".indexOn": [
+          "updatedBy",
+          "entityKey"
+        ]
       },
       "products": {
-        ".indexOn": ["updatedBy", "entityKey"]
+        ".indexOn": [
+          "updatedBy",
+          "entityKey"
+        ]
       },
       "pages": {
-        ".indexOn": ["updatedBy", "entityKey"]
+        ".indexOn": [
+          "updatedBy",
+          "entityKey"
+        ]
       },
       "posts": {
-        ".indexOn": ["updatedBy", "entityKey"]
+        ".indexOn": [
+          "updatedBy",
+          "entityKey"
+        ]
       }
     },
     "orders": {
       ".read": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
       ".write": "auth != null",
-      ".indexOn": ["uid", "rdate"],
+      ".indexOn": [
+        "uid",
+        "rdate"
+      ],
       "$order_id": {
         ".read": "data.child('uid').val() == auth.uid || root.child('admins/'+auth.uid).exists()"
       }
@@ -49,12 +67,20 @@
     "pages": {
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
-      ".indexOn": ["rdateUpdated", "url"]
+      ".indexOn": [
+        "rdateUpdated",
+        "url"
+      ]
     },
     "products": {
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
-      ".indexOn": ["published", "category", "rdateUpdated", "url"],
+      ".indexOn": [
+        "published",
+        "category",
+        "rdateUpdated",
+        "url"
+      ],
       "$p_id": {
         ".read": "data.child('published').val() == true || root.child('admins/'+auth.uid).exists()"
       }
@@ -62,7 +88,10 @@
     "posts": {
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
-      ".indexOn": ["published", "url"]
+      ".indexOn": [
+        "published",
+        "url"
+      ]
     },
     "users": {
       ".read": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)",
@@ -76,18 +105,28 @@
       "$uid": {
         ".read": "$uid == auth.uid",
         "sources": {
-          "$chargeId" : {
+          "$chargeId": {
             ".write": "$uid == auth.uid",
-            "token": { ".validate": "newData.isString()" },
-            "$other": { ".validate": false }
+            "token": {
+              ".validate": "newData.isString()"
+            },
+            "$other": {
+              ".validate": false
+            }
           }
         },
         "charges": {
-          "$sourceId" : {
+          "$sourceId": {
             ".write": "$uid == auth.uid",
-            "source": { ".validate": "newData.isString()" },
-            "amount": { ".validate": "newData.isNumber()" },
-            "$other": { ".validate": false }
+            "source": {
+              ".validate": "newData.isString()"
+            },
+            "amount": {
+              ".validate": "newData.isNumber()"
+            },
+            "$other": {
+              ".validate": false
+            }
           }
         }
       }
