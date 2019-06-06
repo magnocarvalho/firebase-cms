@@ -1,7 +1,7 @@
 <div class="container">
     <div class="button-container">
-        <h2>Product Categories</h2>
-        <button md-raised-button routerLink="/admin/add-product-category">Adicionar Category</button>
+        <h2>Product Categorias</h2>
+        <button md-raised-button routerLink="/admin/add-product-category">Adicionar Categoria</button>
     </div>
     <p *ngIf="(categories | async)?.length === 0" class="center">
         No categories yet
@@ -17,7 +17,7 @@
         <div class="publish">
             <div class="edit">
                 <button md-raised-button routerLink="/admin/edit-product-category/{{ category.key }}">
-                    Edit
+                    Editar
                 </button>
                 <button md-raised-button (click)="deleteCategory(category)" *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
                     Deletar

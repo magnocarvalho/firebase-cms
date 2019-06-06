@@ -21,16 +21,16 @@
         <md-grid-tile colspan="1" rowspan="1">
             <md-card routerLink="/admin/products">
                 <md-icon>shopping_basket</md-icon>
-                <h4 *ngIf="products | async">{{ (products | async)?.length }} Product<span *ngIf="(products | async)?.length !== 1">s</span></h4>
-                <button md-raised-button routerLink="/admin/add-product">Adicionar Product</button>
+                <h4 *ngIf="products | async">{{ (products | async)?.length }} Produto<span *ngIf="(products | async)?.length !== 1">s</span></h4>
+                <button md-raised-button routerLink="/admin/add-product">Adicionar Produto</button>
             </md-card>
         </md-grid-tile>
 
         <md-grid-tile colspan="1" rowspan="1">
             <md-card routerLink="/admin/product-categories">
                 <md-icon>group_work</md-icon>
-                <h4 *ngIf="categories | async">{{ (categories | async)?.length }} Product Categorie<span *ngIf="(categories | async)?.length !== 1">s</span></h4>
-                <button md-raised-button routerLink="/admin/add-product-category">Adicionar Category</button>
+                <h4 *ngIf="categories | async">{{ (categories | async)?.length }} Produto Categori<span *ngIf="(categories | async)?.length !== 1">s</span></h4>
+                <button md-raised-button routerLink="/admin/add-product-category">Adicionar Categoria</button>
             </md-card>
         </md-grid-tile>
 

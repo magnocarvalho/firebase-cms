@@ -37,7 +37,7 @@ export class AdminProductCategoriesComponent implements OnInit {
       this.selectedOption = result;
       if (this.selectedOption === 'delete') {
         this.db.object('/categories/' + category.key).remove();
-        let snackBarRef = this.snackBar.open('Category deleted', 'OK!', {
+        let snackBarRef = this.snackBar.open('Categoria deletada', 'OK!', {
           duration: 3000
         });
         this.ngOnInit();

@@ -3,7 +3,7 @@
         <h2>Fabricantes</h2>
         <button md-raised-button routerLink="/admin/add-fabricante">Adicionar Fabricante</button>
     </div>
-    <p *ngIf="(categories | async)?.length === 0" class="center">
+    <p *ngIf="(fabricantes | async)?.length === 0" class="center">
         No Fabricantes yet
     </p>
     <md-card class="category" *ngFor="let category of fabricantes | async">

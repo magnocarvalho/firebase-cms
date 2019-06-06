@@ -28,18 +28,12 @@
         <span>Approve</span>
     </button> -->
 
-    <button
-        md-raised-button
-        (click)="submitForModeration(newName, newWeight)"
-        class="submit"
+    <button md-raised-button (click)="submitForModeration(newName, newWeight)" class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
         Save Draft
     </button>
 
-    <button
-        md-raised-button
-        (click)="deleteItem($event)"
-        class="submit"
+    <button md-raised-button (click)="deleteItem($event)" class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
         Deletar Draft
     </button>
@@ -52,10 +46,7 @@
         <span>Submit for Moderation</span>
     </button> -->
 
-    <button
-        md-raised-button
-        (click)="addCategory(newName, newWeight)"
-        class="submit"
+    <button md-raised-button (click)="addCategory(newName, newWeight)" class="submit"
         *ngIf="!router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
         <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Salva</span>
