@@ -5,6 +5,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { MdSnackBar, MdDialogRef, MdDialog } from '@angular/material';
 import { GlobalService } from 'app/services/global.service';
 import { Observable } from 'rxjs/Observable';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin-fabricante',
@@ -23,7 +24,8 @@ export class AdminFabricanteComponent implements OnInit {
     public router: Router,
     public dialog: MdDialog,
     public snackBar: MdSnackBar,
-    public globalService: GlobalService
+    public globalService: GlobalService,
+    private location: Location
   ) {
     this.fabricantes = db.list('/fabricantes').snapshotChanges();
 

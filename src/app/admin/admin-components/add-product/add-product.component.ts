@@ -7,6 +7,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { FirebaseApp } from 'angularfire2';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'add-product',
@@ -46,9 +47,10 @@ export class AddProductComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     private fb: FirebaseApp,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    private location: Location
   ) {
-    this.newPublished = false;
+    this.newPublished = true;
     this.products = db.list('/products');
     this.categories = db.list('/categories').snapshotChanges();
 
@@ -117,7 +119,7 @@ export class AddProductComponent implements OnInit {
           this.newPrice = null;
           this.newCategory = null;
           this.newWeight = 0;
-          this.newPublished = false;
+          this.newPublished = true;
         }
     });
   }
@@ -194,7 +196,7 @@ export class AddProductComponent implements OnInit {
 
   addProduct(newTitle: string, newPrice: string, newCategory: any, newWeight: number, newDescription: string, newPublished: boolean) {
     if (!newPublished) {
-      newPublished = false;
+      newPublished = true;
     }
 
     if (newTitle && newPrice && newDescription && this.currentAdmin.uid) {
@@ -222,11 +224,13 @@ export class AddProductComponent implements OnInit {
         this.currentProduct = this.db.object('/products/' + this.productKey);
         this.currentProduct.update(productObject);
         this.updateCategory(this.ogCategory, this.newCategory, this.productKey);
+        this.location.back();
       } else {
         this.products.push(productObject).then((item) => {
           if (this.newCategory) {
             this.db.object('/products/' + item.key + '/entityKey').set(item.key);
             this.db.object('/categories/' + this.newCategory + '/products/' + item.key).set(Date.now().toString());
+            this.ngOnInit();
           }
         });
       }
