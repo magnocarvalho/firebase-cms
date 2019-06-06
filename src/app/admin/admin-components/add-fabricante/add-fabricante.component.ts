@@ -5,6 +5,7 @@ import { MdSnackBar, MdDialogRef, MdDialog } from '@angular/material';
 import { GlobalService } from 'app/services/global.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'add-fabricante',
@@ -33,7 +34,8 @@ export class AddFabricanteComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public globalService: GlobalService,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    private location: Location
   ) {
     this.fabricantes = db.list('/fabricantes');
 
@@ -44,38 +46,41 @@ export class AddFabricanteComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-        if (params && params.key) {
-          this.editMode = true;
-          this.fabricanteKey = params.key;
+      if (params && params.key) {
+        this.editMode = true;
+        this.fabricanteKey = params.key;
 
-          if (this.router.url.includes('approval')) {
-            this.currentCategory = this.db.object('/approvals/fabricantes/' + params.key);
-            this.db.object('/approvals/fabricantes/' + this.fabricanteKey).valueChanges().subscribe((approvalCategory:any) => {
-              this.entityObject = approvalCategory;
-            });
-          } else {
-            this.currentCategory = this.db.object('/fabricantes/' + params.key);
-
-            // check to see if any approvals are awaiting on this fabricante
-            this.db.list('/approvals/fabricantes', ref => ref.orderByChild('entityKey').equalTo(params.key)).snapshotChanges()
-              .subscribe((approval:any) => {
-                if (approval.length > 0 && approval[0]) {
-                  this.awaitingApproval = approval[0].key;
-                }
-            });
-          }
-
-          this.currentCategory.subscribe(c => {
-            this.newName = c.name;
-            this.newWeight = c.weight;
-            if (c.products) {
-              this.newProducts = c.products;
-            }
+        if (this.router.url.includes('approval')) {
+          this.currentCategory = this.db.object('/approvals/fabricantes/' + params.key);
+          this.db.object('/approvals/fabricantes/' + this.fabricanteKey).valueChanges().subscribe((approvalCategory: any) => {
+            this.entityObject = approvalCategory;
           });
         } else {
-          this.newName = null;
-          this.newWeight = 0;
+          this.currentCategory = this.db.object('/fabricantes/' + params.key).valueChanges().subscribe((rss: any) => {
+            if (rss) {
+              this.newName = rss.name;
+              this.newWeight = rss.weight;
+              if (rss.products) {
+                this.newProducts = rss.products;
+              }
+            }
+          }, err => {
+            console.error(err);
+          });
+
         }
+        // if(this.currentCategory)
+        // this.currentCategory.subscribe(c => {
+        //   this.newName = c.name;
+        //   this.newWeight = c.weight;
+        //   if (c.products) {
+        //     this.newProducts = c.products;
+        //   }
+        // });
+      } else {
+        this.newName = null;
+        this.newWeight = 0;
+      }
     });
   }
 
@@ -93,12 +98,12 @@ export class AddFabricanteComponent implements OnInit {
       };
 
       if (this.editMode && this.fabricanteKey) {
-        this.db.object('/fabricantes/' + this.fabricanteKey).update(fabricanteObject).then(res =>{
-          this.ngOnInit();
+        this.db.object('/fabricantes/' + this.fabricanteKey).update(fabricanteObject).then(res => {
+          this.location.back();
         });
       } else {
         this.fabricantes.push(fabricanteObject).then((item) => {
-          this.db.object('/fabricantes/' + item.key + '/entityKey').set(item.key).then(res =>{
+          this.db.object('/fabricantes/' + item.key + '/entityKey').set(item.key).then(res => {
             this.ngOnInit();
           });
         });
@@ -131,7 +136,7 @@ export class AddFabricanteComponent implements OnInit {
 
         let adminApprovalCategories = this.db.list('/approvals/fabricantes/', ref => ref.orderByChild('updatedBy').equalTo(this.currentAdmin.uid)).valueChanges();
 
-        adminApprovalCategories.take(1).subscribe((approvals:any) => {
+        adminApprovalCategories.take(1).subscribe((approvals: any) => {
           let matchingApprovals = [];
           if (this.router.url.includes('approval')) {
             matchingApprovals = approvals.filter((match) => {
@@ -150,7 +155,7 @@ export class AddFabricanteComponent implements OnInit {
           }
         });
       } else {
-          this.db.list('/approvals/fabricantes/').push(approvalObject);
+        this.db.list('/approvals/fabricantes/').push(approvalObject);
       }
       let snackBarRef = this.snackBar.open('Category submitted for moderation', 'OK!', {
         duration: 3000

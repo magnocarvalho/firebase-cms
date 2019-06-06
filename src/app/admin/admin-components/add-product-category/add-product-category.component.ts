@@ -5,6 +5,7 @@ import { MdSnackBar, MdDialogRef, MdDialog } from '@angular/material';
 import { GlobalService } from 'app/services/global.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'add-product-category',
@@ -33,7 +34,8 @@ export class AddProductCategoryComponent implements OnInit {
     public router: Router,
     public route: ActivatedRoute,
     public globalService: GlobalService,
-    public dialog: MdDialog
+    public dialog: MdDialog,
+    private location: Location
   ) {
     this.categories = db.list('/categories');
 
@@ -44,38 +46,43 @@ export class AddProductCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
-        if (params && params.key) {
-          this.editMode = true;
-          this.categoryKey = params.key;
+      if (params && params.key) {
+        this.editMode = true;
+        this.categoryKey = params.key;
 
-          if (this.router.url.includes('approval')) {
-            this.currentCategory = this.db.object('/approvals/categories/' + params.key);
-            this.db.object('/approvals/categories/' + this.categoryKey).valueChanges().subscribe((approvalCategory:any) => {
-              this.entityObject = approvalCategory;
-            });
-          } else {
-            this.currentCategory = this.db.object('/categories/' + params.key);
-
-            // check to see if any approvals are awaiting on this category
-            this.db.list('/approvals/categories', ref => ref.orderByChild('entityKey').equalTo(params.key)).snapshotChanges()
-              .subscribe((approval:any) => {
-                if (approval.length > 0 && approval[0]) {
-                  this.awaitingApproval = approval[0].key;
-                }
-            });
-          }
-
-          this.currentCategory.subscribe(c => {
-            this.newName = c.name;
-            this.newWeight = c.weight;
-            if (c.products) {
-              this.newProducts = c.products;
-            }
+        if (this.router.url.includes('approval')) {
+          this.currentCategory = this.db.object('/approvals/categories/' + params.key);
+          this.db.object('/approvals/categories/' + this.categoryKey).valueChanges().subscribe((approvalCategory: any) => {
+            this.entityObject = approvalCategory;
           });
         } else {
-          this.newName = null;
-          this.newWeight = 0;
+          this.currentCategory = this.db.object('/categories/' + params.key).valueChanges().subscribe((rss: any) => {
+            this.newName = rss.name;
+            this.newWeight = rss.weight;
+            if (rss.products) {
+              this.newProducts = rss.products;
+            }
+          });
+          // check to see if any approvals are awaiting on this category
+          // this.db.list('/approvals/categories', ref => ref.orderByChild('entityKey').equalTo(params.key)).snapshotChanges()
+          //   .subscribe((approval:any) => {
+          //     if (approval.length > 0 && approval[0]) {
+          //       this.awaitingApproval = approval[0].key;
+          //     }
+          // });
         }
+
+        // this.currentCategory.subscribe(c => {
+        //   this.newName = c.name;
+        //   this.newWeight = c.weight;
+        //   if (c.products) {
+        //     this.newProducts = c.products;
+        //   }
+        // });
+      } else {
+        this.newName = null;
+        this.newWeight = 0;
+      }
     });
   }
 
@@ -93,12 +100,12 @@ export class AddProductCategoryComponent implements OnInit {
       };
 
       if (this.editMode && this.categoryKey) {
-        this.db.object('/categories/' + this.categoryKey).update(categoryObject).then(res =>{
-          this.ngOnInit();
+        this.db.object('/categories/' + this.categoryKey).update(categoryObject).then(res => {
+          this.location.back();
         });
       } else {
         this.categories.push(categoryObject).then((item) => {
-          this.db.object('/categories/' + item.key + '/entityKey').set(item.key).then(res =>{
+          this.db.object('/categories/' + item.key + '/entityKey').set(item.key).then(res => {
             this.ngOnInit();
           });
         });
@@ -131,7 +138,7 @@ export class AddProductCategoryComponent implements OnInit {
 
         let adminApprovalCategories = this.db.list('/approvals/categories/', ref => ref.orderByChild('updatedBy').equalTo(this.currentAdmin.uid)).valueChanges();
 
-        adminApprovalCategories.take(1).subscribe((approvals:any) => {
+        adminApprovalCategories.take(1).subscribe((approvals: any) => {
           let matchingApprovals = [];
           if (this.router.url.includes('approval')) {
             matchingApprovals = approvals.filter((match) => {
@@ -150,7 +157,7 @@ export class AddProductCategoryComponent implements OnInit {
           }
         });
       } else {
-          this.db.list('/approvals/categories/').push(approvalObject);
+        this.db.list('/approvals/categories/').push(approvalObject);
       }
       let snackBarRef = this.snackBar.open('Category submitted for moderation', 'OK!', {
         duration: 3000

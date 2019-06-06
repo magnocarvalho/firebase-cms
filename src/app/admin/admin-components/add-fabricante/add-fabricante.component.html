@@ -20,13 +20,13 @@
         <input mdInput placeholder="Category weight" type="number" [(ngModel)]="newWeight">
     </md-input-container>
 
-    <button
+    <!-- <button
         md-raised-button
         (click)="approveItem(newName, newWeight)"
         class="submit"
         *ngIf="router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
         <span>Approve</span>
-    </button>
+    </button> -->
 
     <button
         md-raised-button

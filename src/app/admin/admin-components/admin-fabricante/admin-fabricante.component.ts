@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { Router }    from '@angular/router';
+import { Router } from '@angular/router';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MdSnackBar, MdDialogRef, MdDialog } from '@angular/material';
 import { GlobalService } from 'app/services/global.service';
@@ -33,8 +33,7 @@ export class AdminFabricanteComponent implements OnInit {
   }
 
   deleteCategory(category: any) {
-    let dialogRef = this.dialog.open(DeleteDialogComponent);
-    dialogRef.afterClosed().subscribe(result => {
+    this.dialog.open(DeleteDialogComponent).afterClosed().subscribe(result => {
       this.selectedOption = result;
       if (this.selectedOption === 'delete') {
         this.db.object('/fabricantes/' + category.key).remove();
@@ -42,6 +41,7 @@ export class AdminFabricanteComponent implements OnInit {
         let snackBarRef = this.snackBar.open('Fabricante deleted', 'OK!', {
           duration: 3000
         });
+        this.ngOnInit();
       }
     });
   }
