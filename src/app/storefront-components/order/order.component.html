@@ -37,15 +37,15 @@
   <span *ngIf="order">
     <md-card *ngFor="let item of order.items" class="product">
         <div class="item">{{item.title}}</div>
-        <div class="price">{{item.price | currency:'USD':true }}</div>
+        <div class="price">{{item.price | currency:'BRL':true }}</div>
         <div class="quantity">
           <span>{{item.quantity}}</span>
         </div>
-        <div class="total">{{item.total | currency:'USD':true }}</div>
+        <div class="total">{{item.total | currency:'BRL':true }}</div>
     </md-card>
   <span>
   <button md-raised-button routerLink="/admin/edit-order/{{order.key}}" *ngIf="router.url.includes('/admin')">Edit Order</button>
   <md-card class="order-summary" *ngIf="order">
     <h4 class="subtotal-label">Subtotal</h4>
-    <h4 class="subtotal">{{order.total | currency:'USD':true}}</h4>
+    <h4 class="subtotal">{{order.total | currency:'BRL':true}}</h4>
   </md-card>

@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angular
 import * as firebase from 'firebase/app';
 import { FirebaseApp } from 'angularfire2';
 import { GlobalService } from 'app/services/global.service';
-import { Router }    from '@angular/router';
+import { Router } from '@angular/router';
 import { MdSnackBar, MdDialogRef, MdDialog } from '@angular/material';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { Observable } from 'rxjs/Observable';
@@ -21,6 +21,7 @@ export class AdminProductsComponent implements OnInit {
   dialogRef: MdDialogRef<any>;
   storageRef: any;
   currentAdmin: any;
+  categorias: any;
 
   constructor(
     public af: FirebaseApp,
@@ -31,6 +32,7 @@ export class AdminProductsComponent implements OnInit {
     public snackBar: MdSnackBar
   ) {
     this.products = db.list('/products', ref => ref.orderByChild('rdateUpdated').limitToLast(9999)).snapshotChanges();
+    this.categorias = db.list('/categories/', reff => reff.orderByChild('rdateUpdated').limitToLast(9999)).snapshotChanges();
     this.storageRef = af.storage().ref();
 
     this.globalService.admin.subscribe((a) => {
@@ -41,10 +43,19 @@ export class AdminProductsComponent implements OnInit {
   onChange(e: any, key: string) {
     this.product = this.db.object('/products/' + key);
     if (e.checked) {
-      this.product.update({published: true});
+      this.product.update({ published: true });
     } else {
-      this.product.update({published: false});
+      this.product.update({ published: false });
     }
+    this.listagem();
+  }
+  listagem()
+  {
+    var top: any = this.products;
+    var cat = this.categorias;
+    console.log(cat);
+    console.log(top);
+
   }
 
   deleteProduct(product: any) {
@@ -69,9 +80,9 @@ export class AdminProductsComponent implements OnInit {
         //     console.log('error', error);
         //   });
         // } else {
-          let snackBarRef = this.snackBar.open('Product deleted', 'OK!', {
-            duration: 3000
-          });
+        let snackBarRef = this.snackBar.open('Product deleted', 'OK!', {
+          duration: 3000
+        });
         // }
       }
     });

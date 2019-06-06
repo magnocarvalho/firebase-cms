@@ -13,7 +13,15 @@
 
 .product {
     cursor: pointer;
-
+    .max-100{
+        display: inline-block;
+        max-width: 100px;
+        width: 100%;
+        img{
+            max-width: 100px;
+            width: 100%
+        }
+    } 
     .content {
         display: inline-block;
         width: calc(100% - 410px);
@@ -33,7 +41,7 @@
         margin-top: 10px;
         text-align: right;
         vertical-align: top;
-        width: 400px;
+        width: 300px;
     }
 }
 

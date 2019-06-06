@@ -6,16 +6,16 @@
   <div class="product-right">
     <h2 itemprop="name">{{product.title}}</h2>
     <meta itemprop="priceCurrency" content="USD" />
-    <p itemprop="price">{{product.price | currency:'USD':true}}</p>
+    <p itemprop="price">{{product.price | currency:'BRL':true}}</p>
     <p [innerHTML]="product.description | safeHtml" itemprop="description"></p>
     <div class="quantity-label">Qty</div>
     <md-input-container class="quantity">
       <input mdInput type="number" min="1" [(ngModel)]="product.quantity">
     </md-input-container>
     <button md-raised-button (click)="addToCart(product)">
-      <span *ngIf="!globalCart || !globalCart[product.entityKey]">Adicionar to</span>
+      <span *ngIf="!globalCart || !globalCart[product.entityKey]">Adicionar no</span>
       <span *ngIf="globalCart && globalCart[product.entityKey]">Update</span>
-       Cart
+       Carrinho
     </button>
   </div>
 </div>

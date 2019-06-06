@@ -29,7 +29,7 @@
 
   <a routerLink="/cart" class="edit">Edit Cart</a>
 
-  <h4>Subtotal: {{ order.total | currency:'USD':true }}</h4>
+  <h4>Subtotal: {{ order.total | currency:'BRL':true }}</h4>
 
   <button md-raised-button [disabled]="!newCharge.source || !newCharge.source.last4" class="confirm" (click)="confirm()">Confirm Order</button>
 
