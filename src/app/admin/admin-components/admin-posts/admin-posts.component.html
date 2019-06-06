@@ -1,7 +1,7 @@
 <div class="container">
     <div class="button-container">
         <h2>Posts</h2>
-        <button md-raised-button routerLink="/admin/add-post">Add a Post</button>
+        <button md-raised-button routerLink="/admin/add-post">Adicionar Post</button>
     </div>
     <p *ngIf="(posts | async)?.length === 0" class="center">
         No posts yet
@@ -21,7 +21,7 @@
                     Edit
                 </button>
                 <button md-raised-button (click)="deletePost(post)" *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-                    Delete
+                    Deletar
                 </button>
             </div>
         </div>

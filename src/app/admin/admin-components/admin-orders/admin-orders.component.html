@@ -1,7 +1,7 @@
 <div class="container">
     <div class="button-container">
         <h2>Orders</h2>
-        <button md-raised-button routerLink="/admin/add-order">Add an Order</button>
+        <button md-raised-button routerLink="/admin/add-order">Adicionar an Order</button>
     </div>
     <p *ngIf="!(orders | async) || (orders | async)?.length === 0" class="center">
         No orders yet
@@ -23,7 +23,7 @@
                     Edit
                 </button>
                 <button md-raised-button (click)="deleteOrder($event, order.key)" *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-                    Delete
+                    Deletar
                 </button>
             </div>
         </div>

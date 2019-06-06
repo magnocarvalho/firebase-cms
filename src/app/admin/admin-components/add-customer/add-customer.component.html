@@ -1,6 +1,6 @@
 <div class="customer-form">
     <h2>
-        <span *ngIf="!editMode">Add a</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Edit</span>
         Customer
     </h2>
@@ -10,7 +10,7 @@
     </md-input-container>
 
     <button md-raised-button (click)="addCustomer(newEmail)" class="block">
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Save</span>
         Customer
     </button>

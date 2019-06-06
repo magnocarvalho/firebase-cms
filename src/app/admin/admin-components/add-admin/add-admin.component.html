@@ -1,6 +1,6 @@
 <div class="admin-form">
     <h2>
-        <span *ngIf="!editMode">Add an</span>
+        <span *ngIf="!editMode">Adicionar an</span>
         <span *ngIf="editMode">Edit</span>
         Admin
     </h2>
@@ -16,7 +16,7 @@
     </md-select>
 
     <button md-raised-button (click)="addAdmin(newEmail, newRole)" class="block">
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Save</span>
         Admin
     </button>

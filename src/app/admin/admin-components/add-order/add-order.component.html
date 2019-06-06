@@ -1,6 +1,6 @@
 <div class="order-form">
     <h2>
-        <span *ngIf="!editMode">Add an</span>
+        <span *ngIf="!editMode">Adicionar an</span>
         <span *ngIf="editMode">Edit</span>
         Order <span *ngIf="editMode">#{{orderKey}}</span>
     </h2>
@@ -74,7 +74,7 @@
     </md-card>
 
     <button md-raised-button (click)="addOrder(order)" class="block submit">
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Save</span>
         Order
     </button>

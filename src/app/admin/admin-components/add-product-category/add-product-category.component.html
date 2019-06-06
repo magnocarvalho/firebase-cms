@@ -1,6 +1,6 @@
 <div class="category-form">
     <h2>
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Edit</span>
         <span>Categoria</span>
     </h2>
@@ -41,7 +41,7 @@
         (click)="deleteItem($event)"
         class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
-        Delete Draft
+        Deletar Draft
     </button>
 
     <!-- <button
@@ -57,7 +57,7 @@
         (click)="addCategory(newName, newWeight)"
         class="submit"
         *ngIf="!router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Save</span>
         <span>Categoria</span>
     </button>

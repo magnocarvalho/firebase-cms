@@ -38,7 +38,7 @@
             md-raised-button
             (click)="deleteItem($event, 'products', product.key)"
             *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || product.payload.val().updatedBy === currentAdmin.uid">
-            Delete
+            Deletar
           </button>
         </div>
       </div>
@@ -77,7 +77,7 @@
             md-raised-button
             (click)="deleteItem($event, 'categories', category.key)"
             *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || category.payload.val().updatedBy === currentAdmin.uid">
-            Delete
+            Deletar
           </button>
         </div>
       </div>
@@ -116,7 +116,7 @@
             md-raised-button
             (click)="deleteItem($event, 'pages', page.key)"
             *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || page.payload.val().updatedBy === currentAdmin.uid">
-            Delete
+            Deletar
           </button>
         </div>
       </div>
@@ -155,7 +155,7 @@
             md-raised-button
             (click)="deleteItem($event, 'posts', post.key)"
             *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || post.payload.val().updatedBy === currentAdmin.uid">
-            Delete
+            Deletar
           </button>
         </div>
       </div>

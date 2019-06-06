@@ -26,7 +26,7 @@
         <md-option *ngFor="let category of categories | async" [value]="category.key">{{ category.payload.val().name }}</md-option>
     </md-select>
 
-    <md-input-container class="weight">
+    <md-input-container class=" quantidade">
         <input mdInput placeholder="Weight" [(ngModel)]="newWeight">
     </md-input-container>
 
@@ -73,7 +73,7 @@
         (click)="deleteItem($event)"
         class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
-        Delete Draft
+        Deletar Draft
     </button>
 
     <button
@@ -89,7 +89,7 @@
         (click)="addProduct(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished, false)"
         class="submit"
         *ngIf="!router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
-        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="!editMode">Adicionar</span>
         <span *ngIf="editMode">Save</span>
         Product
     </button>

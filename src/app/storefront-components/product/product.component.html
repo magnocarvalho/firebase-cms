@@ -13,7 +13,7 @@
       <input mdInput type="number" min="1" [(ngModel)]="product.quantity">
     </md-input-container>
     <button md-raised-button (click)="addToCart(product)">
-      <span *ngIf="!globalCart || !globalCart[product.entityKey]">Add to</span>
+      <span *ngIf="!globalCart || !globalCart[product.entityKey]">Adicionar to</span>
       <span *ngIf="globalCart && globalCart[product.entityKey]">Update</span>
        Cart
     </button>

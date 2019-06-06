@@ -1,7 +1,7 @@
 <div class="container">
     <div class="button-container">
         <h2>Admins</h2>
-        <button md-raised-button routerLink="/admin/add-admin">Add an Admin</button>
+        <button md-raised-button routerLink="/admin/add-admin">Adicionar an Admin</button>
     </div>
     <span *ngFor="let admin of admins | async">
         <md-card class="admin" *ngIf="admin.payload.val().active || (!admin.payload.val().active && countAdmin(admin.payload.val().email) === 1)" routerLink="/admin/edit-admin/{{admin.key}}">
