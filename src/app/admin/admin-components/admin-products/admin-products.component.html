@@ -24,6 +24,7 @@
                 <span *ngFor="let categ of categorias | async">
                     <p *ngIf="product.payload.val().category === categ.payload.val().entityKey">Categoria: {{categ.payload.val().name}}</p>
                 </span>
+                <span *ngFor="let categ of fabricantas | async" *ngIf="product.payload.val().category === categ.payload.val().entityKey">Marca: {{categ.payload.val().name}} </span>
                 <span>
                     {{product.payload.val().price | currency:'BRL':true }}
                 </span>

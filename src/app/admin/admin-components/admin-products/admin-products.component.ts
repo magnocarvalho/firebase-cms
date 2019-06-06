@@ -21,7 +21,8 @@ export class AdminProductsComponent implements OnInit {
   dialogRef: MdDialogRef<any>;
   storageRef: any;
   currentAdmin: any;
-  categorias: Observable<any[]>
+  categorias: Observable<any[]>;
+  fabricantas: Observable<any[]>;
 
   constructor(
     public af: FirebaseApp,
@@ -32,6 +33,7 @@ export class AdminProductsComponent implements OnInit {
     public snackBar: MdSnackBar
   ) {
     this.products = db.list('/products', ref => ref.orderByChild('rdateUpdated').limitToLast(9999)).snapshotChanges();
+    this.fabricantas = db.list('/fabricantes/', reff => reff.orderByChild('rdateUpdated').limitToLast(9999)).snapshotChanges();
     this.categorias = db.list('/categories/', reff => reff.orderByChild('rdateUpdated').limitToLast(9999)).snapshotChanges();
     this.storageRef = af.storage().ref();
 

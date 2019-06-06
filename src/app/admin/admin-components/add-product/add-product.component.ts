@@ -20,9 +20,11 @@ export class AddProductComponent implements OnInit {
   categories: Observable<any>;
   fabricantes: Observable<any>;
   ogCategory: string;
+  ogfabricante:string;
   newTitle: string;
   newThumbnail: string;
   newDescription: string;
+  newFabricante: string;
   newPrice: string;
   newPublished: boolean;
   newCategory: any;
@@ -79,6 +81,7 @@ export class AddProductComponent implements OnInit {
             this.db.object('/approvals/products/' + params.key).valueChanges().take(1).subscribe((p:any) => {
               if (p.category) {
                 this.ogCategory = p.category;
+                this.ogfabricante = p.category;
               }
             });
             this.db.object('/approvals/products/' + this.productKey).valueChanges().subscribe((approvalProduct:any) => {
@@ -88,6 +91,7 @@ export class AddProductComponent implements OnInit {
             this.currentProduct = this.db.object('/products/' + params.key);
             this.db.object('/products/' + params.key).valueChanges().take(1).subscribe((p:any) => {
               if (p.category) {
+                this.ogfabricante = p.category;
                 this.ogCategory = p.category;
               }
             });
@@ -107,6 +111,7 @@ export class AddProductComponent implements OnInit {
             this.newPrice = p.price;
             this.newPublished = p.published;
             this.newCategory = p.category;
+            this.newFabricante = p.fabricante;
             this.newWeight = p.weight;
 
             if (p.thumbnail) {
@@ -120,6 +125,7 @@ export class AddProductComponent implements OnInit {
           this.newDescription = null;
           this.newPrice = null;
           this.newCategory = null;
+          this.newFabricante = null;
           this.newWeight = 1;
           this.newPublished = true;
         }
@@ -195,8 +201,18 @@ export class AddProductComponent implements OnInit {
       this.db.object('/categories/' + newCat + '/products/' + key).set(Date.now().toString());
     }
   }
+  updateFabricante(ogCat: string, newCat: string, key: string) {
+    if (ogCat && newCat) {
+      this.db.object('/fabricantes/' + ogCat + '/products/' + key).remove();
+      this.db.object('/fabricantes/' + newCat + '/products/' + key).set(Date.now().toString());
+    } else if (ogCat && !newCat) {
+      this.db.object('/fabricantes/' + ogCat + '/products/' + key).remove();
+    } else if (!ogCat && newCat) {
+      this.db.object('/fabricantes/' + newCat + '/products/' + key).set(Date.now().toString());
+    }
+  }
 
-  addProduct(newTitle: string, newPrice: string, newCategory: any, newWeight: number, newDescription: string, newPublished: boolean) {
+  addProduct(newTitle: string, newPrice: string ,newCategory: any, newWeight: number, newDescription: string, newFabricante:any, newPublished: boolean) {
     if (!newPublished) {
       newPublished = true;
     }
@@ -211,6 +227,7 @@ export class AddProductComponent implements OnInit {
         thumbnail: this.newThumbnail ? this.newThumbnail : null,
         description: newDescription,
         price: newPrice,
+        fabricante: newFabricante,
         published: newPublished,
         updatedBy: this.currentAdmin.uid,
         weight: newWeight,
@@ -226,6 +243,7 @@ export class AddProductComponent implements OnInit {
         this.currentProduct = this.db.object('/products/' + this.productKey);
         this.currentProduct.update(productObject);
         this.updateCategory(this.ogCategory, this.newCategory, this.productKey);
+        this.updateFabricante(this.ogfabricante, this.newFabricante, this.productKey);
         this.location.back();
       } else {
         this.products.push(productObject).then((item) => {

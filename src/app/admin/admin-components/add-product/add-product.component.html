@@ -23,7 +23,13 @@
 
     <md-select placeholder="Produto Categoria" [(ngModel)]="newCategory">
         <md-option value="">Sem categoria</md-option>
-        <md-option *ngFor="let category of categories | async" [value]="category.key">{{ category.payload.val().name }}</md-option>
+        <md-option *ngFor="let category of categories | async" [value]="category.key">{{ category.payload.val().name }}
+        </md-option>
+    </md-select>
+    <md-select placeholder="Produto Fabricante" [(ngModel)]="newFabricante">
+        <md-option value="">Sem categoria</md-option>
+        <md-option *ngFor="let fabri of fabricantes | async" [value]="fabri.key">{{ fabri.payload.val().name }}
+        </md-option>
     </md-select>
 
     <!-- <md-input-container class="quantidade">
@@ -35,15 +41,13 @@
         <span *ngIf="newThumbnail">Mudar</span>
         Foto
     </button>
-    <input type="file" id="uploadImage" name="thumbnail" class="native-upload" (change)="handleFiles($event)" accept="image/*">
+    <input type="file" id="uploadImage" name="thumbnail" class="native-upload" (change)="handleFiles($event)"
+        accept="image/*">
     <img [src]="newThumbnail" *ngIf="newThumbnail" class="thumbnail">
     <div class="no-image" *ngIf="!newThumbnail">No image chosen</div>
     <div (click)="deleteImage()" *ngIf="newThumbnail" class="delete-image">Delete Image</div>
 
-    <ckeditor
-        [(ngModel)]="newDescription"
-        [config]="{uiColor: '#FFFFFF', extraPlugins: 'divarea'}"
-        [readonly]="false">
+    <ckeditor [(ngModel)]="newDescription" [config]="{uiColor: '#FFFFFF', extraPlugins: 'divarea'}" [readonly]="false">
     </ckeditor>
 
 
@@ -51,30 +55,19 @@
         <span *ngIf="!newPublished">Publish</span>
         <span *ngIf="newPublished">Un-Publish</span>
     </md-slide-toggle> -->
-
-    <button
-        md-raised-button
-        (click)="approveItem(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished)"
-        class="submit"
+<!-- 
+    <button md-raised-button
+        (click)="approveItem(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished)" class="submit"
         *ngIf="router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
         <span>Approve</span>
-    </button>
+    </button> -->
 
-    <button
-        md-raised-button
+    <!-- <button md-raised-button
         (click)="submitForModeration(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished)"
         class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
         Save Draft
-    </button>
-
-    <button
-        md-raised-button
-        (click)="deleteItem($event)"
-        class="submit"
-        *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
-        Deletar Draft
-    </button>
+    </button> -->
 
     <!-- <button
         md-raised-button
@@ -84,9 +77,8 @@
         <span>Submit for Moderation</span>
     </button> -->
 
-    <button
-        md-raised-button
-        (click)="addProduct(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished, false)"
+    <button md-raised-button
+        (click)="addProduct(newTitle, newPrice, newCategory, newWeight, newDescription, newPublished, newFabricante, false)"
         class="submit"
         *ngIf="!router.url.includes('approval') && (currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">
         <span *ngIf="!editMode">Adicionar</span>
