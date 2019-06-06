@@ -18,6 +18,7 @@ export class AddProductComponent implements OnInit {
 
   products: AngularFireList<any>;
   categories: Observable<any>;
+  fabricantes: Observable<any>;
   ogCategory: string;
   newTitle: string;
   newThumbnail: string;
@@ -53,6 +54,7 @@ export class AddProductComponent implements OnInit {
     this.newPublished = true;
     this.products = db.list('/products');
     this.categories = db.list('/categories').snapshotChanges();
+    this.fabricantes = db.list('/fabricantes').snapshotChanges();
 
     this.globalService.admin.subscribe(admin => {
       this.currentAdmin = admin;
@@ -118,7 +120,7 @@ export class AddProductComponent implements OnInit {
           this.newDescription = null;
           this.newPrice = null;
           this.newCategory = null;
-          this.newWeight = 0;
+          this.newWeight = 1;
           this.newPublished = true;
         }
     });

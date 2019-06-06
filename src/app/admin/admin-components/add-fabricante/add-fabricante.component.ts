@@ -79,7 +79,7 @@ export class AddFabricanteComponent implements OnInit {
         // });
       } else {
         this.newName = null;
-        this.newWeight = 0;
+        this.newWeight = 1;
       }
     });
   }

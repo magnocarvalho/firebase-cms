@@ -5,7 +5,7 @@
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"
     },
-    "fabricante": {
+    "fabricantes": {
       ".indexOn": ["slug", "weight"],
       ".read": true,
       ".write": "root.child('admins/'+auth.uid).exists() && root.child('admins/'+auth.uid).child('role').val().matches(/(admin)/)"

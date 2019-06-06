@@ -19,7 +19,11 @@
                 <a routerLink="/product/{{product.payload.val().url}}" target="_blank">
                     {{product.payload.val().title}}</a>
             </h3>
+            
             <div class="date">
+                <span *ngFor="let categ of categorias | async">
+                    <p *ngIf="product.payload.val().category === categ.payload.val().entityKey">Categoria: {{categ.payload.val().name}}</p>
+                </span>
                 <span>
                     {{product.payload.val().price | currency:'BRL':true }}
                 </span>
@@ -35,7 +39,7 @@
 
             <div class="edit">
                 <button md-raised-button routerLink="/admin/edit-product/{{ product.key }}">
-                    Edit
+                    Editar
                 </button>
                 <button md-raised-button (click)="deleteProduct(product)"
                     *ngIf="(currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin')">

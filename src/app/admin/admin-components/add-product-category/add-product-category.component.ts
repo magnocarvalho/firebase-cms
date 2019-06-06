@@ -81,7 +81,7 @@ export class AddProductCategoryComponent implements OnInit {
         // });
       } else {
         this.newName = null;
-        this.newWeight = 0;
+        this.newWeight = 1;
       }
     });
   }

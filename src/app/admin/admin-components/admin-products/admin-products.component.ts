@@ -21,7 +21,7 @@ export class AdminProductsComponent implements OnInit {
   dialogRef: MdDialogRef<any>;
   storageRef: any;
   currentAdmin: any;
-  categorias: any;
+  categorias: Observable<any[]>
 
   constructor(
     public af: FirebaseApp,
@@ -47,15 +47,20 @@ export class AdminProductsComponent implements OnInit {
     } else {
       this.product.update({ published: false });
     }
-    this.listagem();
+    // this.listagem();
   }
   listagem()
   {
-    var top: any = this.products;
-    var cat = this.categorias;
+    var top: any;
+    var cat: any;
+    this.products.subscribe((res:any) =>{
+      top = res;
+    });
+    this.categorias.subscribe((res:any) =>{
+      cat = res;
+    });
     console.log(cat);
     console.log(top);
-
   }
 
   deleteProduct(product: any) {

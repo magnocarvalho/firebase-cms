@@ -5,20 +5,20 @@
         <span>Categoria</span>
     </h2>
 
-    <md-toolbar class="highlight small" *ngIf="awaitingApproval" routerLink="/admin/approvals">
+    <!-- <md-toolbar class="highlight small" *ngIf="awaitingApproval" routerLink="/admin/approvals">
         This product has a change awaiting moderation
         <div class="action">
             View Approvals
         </div>
-    </md-toolbar>
+    </md-toolbar> -->
 
     <md-input-container class="block">
-        <input mdInput placeholder="Categoria nome" type="text" [(ngModel)]="newName">
+        <input mdInput placeholder="Fabricante nome" type="text" [(ngModel)]="newName">
     </md-input-container>
 
-    <md-input-container>
+    <!-- <md-input-container>
         <input mdInput placeholder="Categoria quantidade" type="number" [(ngModel)]="newWeight">
-    </md-input-container>
+    </md-input-container> -->
 
     <button
         md-raised-button
@@ -36,13 +36,13 @@
         Save Draft
     </button> -->
 
-    <button
+    <!-- <button
         md-raised-button
         (click)="deleteItem($event)"
         class="submit"
         *ngIf="router.url.includes('approval') && entityObject && ((currentAdmin.role === 'super-admin' || currentAdmin.role === 'admin') || currentAdmin.uid === entityObject.updatedBy)">
         Deletar Draft
-    </button>
+    </button> -->
 
     <!-- <button
         md-raised-button

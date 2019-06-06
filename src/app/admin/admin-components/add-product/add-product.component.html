@@ -13,22 +13,22 @@
     </md-toolbar>
 
     <md-input-container class="block">
-        <input mdInput placeholder="Title" [(ngModel)]="newTitle">
+        <input mdInput placeholder="Titulo" [(ngModel)]="newTitle">
     </md-input-container>
 
     <div class="currency-label">R$</div>
     <md-input-container class="price">
-        <input mdInput placeholder="Price" [(ngModel)]="newPrice">
+        <input mdInput placeholder="Preço" [(ngModel)]="newPrice">
     </md-input-container>
 
-    <md-select placeholder="Product Category" [(ngModel)]="newCategory">
+    <md-select placeholder="Produto Categoria" [(ngModel)]="newCategory">
         <md-option value="">Sem categoria</md-option>
         <md-option *ngFor="let category of categories | async" [value]="category.key">{{ category.payload.val().name }}</md-option>
     </md-select>
 
-    <md-input-container class=" quantidade">
+    <!-- <md-input-container class="quantidade">
         <input mdInput placeholder="Weight" [(ngModel)]="newWeight">
-    </md-input-container>
+    </md-input-container> -->
 
     <button md-raised-button class="mat-upload-button" onclick="document.getElementById('uploadImage').click()">
         <span *ngIf="!newThumbnail">Upload</span>
