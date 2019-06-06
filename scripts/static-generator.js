@@ -5,11 +5,11 @@ const Nightmare = require('nightmare'),
       selector = 'html';
 
 let links = [
-  'https://ellitecapas.firebaseapp.com/',
-  'https://ellitecapas.firebaseapp.com/blog',
-  'https://ellitecapas.firebaseapp.com/products',
-  'https://ellitecapas.firebaseapp.com/search',
-  'https://ellitecapas.firebaseapp.com/cart'];
+  'https://admin-ellite.firebaseapp.com/',
+  'https://admin-ellite.firebaseapp.com/blog',
+  'https://admin-ellite.firebaseapp.com/products',
+  'https://admin-ellite.firebaseapp.com/search',
+  'https://admin-ellite.firebaseapp.com/cart'];
 
 let getLinks = (i) => {
   let nightmareLink = Nightmare({
@@ -29,8 +29,8 @@ let getLinks = (i) => {
       let $ = cheerio.load(content);
       let thelinks = $('a');
       $(thelinks).each((i, link) => {
-        if (links.indexOf('https://ellitecapas.firebaseapp.com' + $(link).attr('href')) === -1) {
-          links.push('https://ellitecapas.firebaseapp.com' + $(link).attr('href'));
+        if (links.indexOf('https://admin-ellite.firebaseapp.com' + $(link).attr('href')) === -1) {
+          links.push('https://admin-ellite.firebaseapp.com' + $(link).attr('href'));
         }
       });
 
@@ -67,7 +67,7 @@ let scrape = () => {
           });
           stream = fs.createWriteStream("./static/index.html");
         } else {
-          let path = './static' + links[x].replace('https://ellitecapas.firebaseapp.com', '');
+          let path = './static' + links[x].replace('https://admin-ellite.firebaseapp.com', '');
           path = path.split('/');
           path = path.slice(0, -1);
           path = path.join('/');
@@ -76,7 +76,7 @@ let scrape = () => {
             if (err) console.error('dir not created ' + path)
             else console.log('dir created ' + path)
           });
-          stream = fs.createWriteStream("./static" + links[x].replace('https://ellitecapas.firebaseapp.com', '') + ".html");
+          stream = fs.createWriteStream("./static" + links[x].replace('https://admin-ellite.firebaseapp.com', '') + ".html");
         }
         stream.once('open', (fd) => {
             stream.write(content);

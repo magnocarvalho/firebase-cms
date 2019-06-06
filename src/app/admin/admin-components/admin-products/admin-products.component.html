@@ -19,12 +19,15 @@
                 <a routerLink="/product/{{product.payload.val().url}}" target="_blank">
                     {{product.payload.val().title}}</a>
             </h3>
-            
+
             <div class="date">
                 <span *ngFor="let categ of categorias | async">
-                    <p *ngIf="product.payload.val().category === categ.payload.val().entityKey">Categoria: {{categ.payload.val().name}}</p>
+                    <p *ngIf="product.payload.val().category === categ.payload.val().entityKey">Categoria:
+                        {{categ.payload.val().name}}</p>
                 </span>
-                <span *ngFor="let categ of fabricantas | async" *ngIf="product.payload.val().category === categ.payload.val().entityKey">Marca: {{categ.payload.val().name}} </span>
+                <span *ngFor="let categ of fabricantas | async">
+                    <span> *ngIf="product.payload.val().category === categ.payload.val().entityKey">Marca:
+                        {{categ.payload.val().name}} </span></span>
                 <span>
                     {{product.payload.val().price | currency:'BRL':true }}
                 </span>
